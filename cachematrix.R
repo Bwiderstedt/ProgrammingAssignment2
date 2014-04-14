@@ -44,7 +44,7 @@ makeCacheMatrix <- function(x = matrix()) {
 	getMatrix <- function() {
 		x 
 	}
-# method to set the inverse of matrix ** DOES NOT CALCULATE INVERSE **
+# method to set the inverse into a cached matrix (invertedMatrix) ** DOES NOT CALCULATE INVERSE **
 	setInverse <- function(inverseMatrix) {
 		invertedMatrix <<- inverseMatrix 
 	}

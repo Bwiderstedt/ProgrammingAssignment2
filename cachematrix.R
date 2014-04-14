@@ -3,40 +3,42 @@
 #	cachedMatrix, that has methods to get and set matrix values and 
 #	the matrix inverse. 
 #	
-#	Methods for a cachedMatrix CM 
-#		CM$set(x)
-#			@x = a square, invertable matrix 
-#			@return 
-#				x = the matrix values 
-#				invertedMatrix = NULL 
-#		CM$get()
-#			@return = the matrix values 
-#		CM$setInverse(y)
-#			@y = the inverse of the matrix (x)
-#			@return = the inverse of the matrix (x)
-#		CM$getInverse()
-#			@return = the inverse of the matrix (x) 
-#
 #	When created, the cachedMatrix has no inverse calculated, 
 #	To calculate inverted matrix, call cacheSolve(CM) 
 ###############################################################################
 
 
 ###############################################################################	
-#	makeCacheMatrix 
-#		 Creates a matrix that can store and cache values 
-#		@args 
-#			x = a matrix to store as cachedMatrix (assume square and invertable) 
-#		@return 
-#			- a list of functions / methods for the cachedMatrix 
+# makeCacheMatrix 
+#	 Creates a matrix that can store and cache values 
+#	@args 
+#		x = a matrix to store as cachedMatrix (assume square and invertable) 
+#	@return 
+#		- a list of functions / methods for the cachedMatrix 
+#
+# Methods for a cachedMatrix CM 
+# 	Setting matrix values, and resetting the inverse (since data has changed) 
+#		CM$set(x) 
+#			@x = a square, invertable matrix 
+#			@return x = the matrix values 
+#	Getting the matrix values 
+#		CM$get() 
+#			@return = the matrix values 
+#	Setting the inverse: should *only* be called from cacheSolve(CM) 
+#		CM$setInverse(y) 
+#			@y = the inverse of the matrix (x)
+#			@return = the inverse of the matrix (x)
+#	Getting the cached inverse 
+#		CM$getInverse()
+#			@return = the inverse of the matrix (x) 
 ###############################################################################
 makeCacheMatrix <- function(x = matrix()) {
 
 	invertedMatrix <- NULL 
 # method to assign the matrix to be inverted to (cached) x - 
 	setMatrix <- function (y) {
-	          x <<- y
-              invertedMatrix <<- NULL
+	      x <<- y
+              invertedMatrix <<- NULL		# reset inverse - data has changed 
 	}
 # method to return the matrix data 
 	getMatrix <- function() {
@@ -57,14 +59,13 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ###############################################################################
 # cacheSolve 
-#			returns the inverse of a cachedMatrix. 
-#			If inverse is already calculated, then return the cached version
-#			If inverse is not calculated, then calucalate inverse and store 
-#				in cachedMatrix 
-#		@args
-#			x = the cachedMatrix to invert 
-#		@return
-#			- the inverse of the @args cached Matrix 
+#	returns the inverse of a cachedMatrix. 
+#	If inverse is already calculated, then return the cached version
+#	If inverse is not calculated, then calucalate inverse and store 
+#	in cachedMatrix 
+#	@args
+#		x = the cachedMatrix to invert 
+#		@return - the inverse of the @args cached Matrix 
 # #############################################################################
 
 cacheSolve <- function(x, ...) {
